@@ -21,6 +21,7 @@ typedef struct
 	Box box;
 	Color background;
 	Color border;
+	int border_size;
 	Bool isVisible;
 
 } WritableArea;
