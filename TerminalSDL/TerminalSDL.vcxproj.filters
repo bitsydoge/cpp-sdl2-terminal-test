@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{b9481e44-1c10-4f87-bb25-eebeefcf7b4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hdr">
+      <UniqueIdentifier>{1e0102b1-00ac-4a16-bd64-3b697638e099}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Input.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hdr\Draw.h">
+      <Filter>hdr</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Color.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Box.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\hdr\Input.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Struct.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Draw.c">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Color.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Box.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
