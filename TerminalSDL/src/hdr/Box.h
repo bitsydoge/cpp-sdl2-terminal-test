@@ -1,24 +1,26 @@
-﻿#ifndef DEF_ICE_BOX
-#define DEF_ICE_BOX
-#include "hdr/Struct.h"
+﻿#pragma once
 #include <SDL2/SDL.h>
 
-/// iceBox to SDL_Rect
-Box ConvertSdlToBox(SDL_Rect *rect);
-/// SDL_Rect to iceBox
-SDL_Rect ConvertBoxToSdl(Box *rect);
+class Box
+{
+	int x_, y_, w_, h_;
 
-// Creation
-Box BoxNew(int x, int y, int w, int h);
+public:
+	Box(int x, int y, int w, int h);
+	SDL_Rect sdl();
 
-// Math
-Box BoxScale(Box rect, float scale);
-Bool BoxCompare(Box box1, Box box2);
-Bool BoxCompareSize(Box box1, Box box2);
-Bool BoxComparePos(Box box1, Box box2);
+	// Edit
+	void BoxSetPos(int x, int y);
+	void BoxSetSize(int w, int h);
+	void BoxShift(int x, int y);
 
-// Edit
-void BoxSetPos(Box *rect, int x, int y);
-void BoxSetSize(Box *rect, int w, int h);
-void BoxShift(Box *rect, int x, int y);
-#endif
+	// Overload
+	bool operator==(const Box& b) const;
+	bool operator!=(const Box& b) const;
+	Box operator*(const float& f) const;
+	Box& operator=(const SDL_Rect& r);
+	
+
+	bool BoxCompareSize(Box box2);
+	bool BoxComparePos(Box box2);
+};

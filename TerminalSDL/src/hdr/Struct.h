@@ -1,57 +1,64 @@
 ﻿#ifndef DEF_ICE_STRUCT
 #define DEF_ICE_STRUCT 
 
-#define False 0
-#define True 1
-#define Error -1
-
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include "Box.h"
+#include <string>
 
-typedef char Bool;
 typedef Uint32 Color;
-typedef char* String;
+
+typedef struct {
+
+	int exist;
+	int w;
+	int h;
+	SDL_Texture* handle;
+
+} Texture;
 
 typedef struct
 {
-	int x, y, w, h;
-} Box;
+	int posx, posy;
+
+	std::string TextActual;
+	std::string TextLast;
+	Color ColorActual;
+	Color ColorLast;
+	int SizeActual;
+	int SizeLast;
+	bool HaveTexture;
+	Texture cache;
+
+} Label;
 
 typedef struct
 {
+
 	Box box;
 	Color background;
 	Color border;
 	int border_size;
-	Bool isVisible;
+	bool isVisible;
+	Label LabelActual;
 
 } WritableArea;
 
-typedef struct
-{
-	SDL_Texture *texture;
-	Box box;
-
-	String Title;
-	Bool haveTitle;
-	Bool isVisible;
-	Bool isFocused;
-
-} GuiWindow;
-
 typedef struct {
 
-Bool quit;
+bool quit;
 
 ////////////////////////////////////
 // Window
 
-Bool focus;
+bool focus;
 int sizew;
 int sizeh;
 
 // Clavier
 
-Bool key[1024];
+bool key[1024];
+std::string command;
 
 ////////////////////////////////////
 // Souris
@@ -61,11 +68,11 @@ int mousey;
 
 	// Clic
 
-Bool leftclic;
+bool leftclic;
 int leftclic_position_x;
 int leftclic_position_y;
 
-Bool rightclic;
+bool rightclic;
 int rightclic_position_x;
 int rightclic_position_y;
 
@@ -80,16 +87,5 @@ int wheeldown;
 char *filedrop;
 
 } Input;
-
-typedef struct
-{
-	SDL_Window *window;
-	SDL_Renderer *render;
-	Input input;
-
-	int GuiWindowManager_Size;
-	GuiWindow * GuiWindoManager;
-
-} Core;
 
 #endif

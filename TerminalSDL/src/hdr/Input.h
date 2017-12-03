@@ -1,9 +1,6 @@
 #ifndef DEF_INPUT
 #define DEF_INPUT
 
-#include <string.h>
-#include <stdio.h>
-
 #include <SDL2/SDL.h>
 #include "hdr/Struct.h"
 
@@ -375,11 +372,11 @@ INPUT_MODE = 257,    /**< I'm not sure if this is really not covered
 	INPUT_WHEELDOWN = 604
 };
 
-int InputReturn(Core *core);
+int InputReturn();
 
-void InputReset(Core *core);
+void InputReset();
 
-Bool InputButton(Core *core, int button);
+bool InputButton(int button);
 
 
 #endif

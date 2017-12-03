@@ -9,19 +9,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Input.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\hdr\Draw.h">
       <Filter>hdr</Filter>
     </ClCompile>
-    <ClCompile Include="src\Color.c">
+    <ClCompile Include="src\Texture.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Box.c">
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Color.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Box.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Font.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,13 +41,22 @@
     <ClInclude Include="src\hdr\Struct.h">
       <Filter>hdr</Filter>
     </ClInclude>
-    <ClInclude Include="src\Draw.c">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\hdr\Color.h">
       <Filter>hdr</Filter>
     </ClInclude>
     <ClInclude Include="src\hdr\Box.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Texture.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Draw.cpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Core.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Font.h">
       <Filter>hdr</Filter>
     </ClInclude>
   </ItemGroup>
