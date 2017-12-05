@@ -5,8 +5,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "Box.h"
 #include <string>
-
-typedef Uint32 Color;
+#include "Color.h"
 
 typedef struct {
 

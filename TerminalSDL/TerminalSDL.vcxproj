@@ -23,18 +23,14 @@
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\Font.cpp" />
-    <ClCompile Include="src\hdr\Draw.h" />
-    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Draw.cpp" />
     <ClInclude Include="src\hdr\Box.h" />
     <ClInclude Include="src\hdr\Color.h" />
     <ClInclude Include="src\hdr\Core.h" />
     <ClInclude Include="src\hdr\Font.h" />
-    <ClInclude Include="src\hdr\Input.h" />
     <ClInclude Include="src\hdr\Struct.h" />
     <ClInclude Include="src\hdr\Texture.h" />
   </ItemGroup>

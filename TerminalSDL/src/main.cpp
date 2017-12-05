@@ -1,4 +1,3 @@
-#include "hdr/Input.h"
 #include "hdr/Box.h"
 #include "hdr/Color.h"
 #include <SDL2/SDL_ttf.h>
@@ -38,21 +37,19 @@ void WritableAreaSetBorderSize(WritableArea* wa, int size)
 void WritableAreaDraw(WritableArea* wa)
 {
 	SDL_SetRenderDrawColor(
-		core.GetRender(),
-		ColorRed(wa->background), 
-		ColorGreen(wa->background), 
-		ColorBlue(wa->background),
-	    ColorAlpha(wa->background)
+		core.GetRender(),wa->background.Red(), 
+		wa->background.Green(),
+		wa->background.Blue(),
+		wa->background.Alpha()
 	);
 	SDL_Rect sdl = wa->box.sdl();
 	SDL_RenderFillRect(core.GetRender(), &sdl);
 	SDL_SetRenderDrawColor(
 		core.GetRender(),
-		ColorRed(wa->border),
-		ColorGreen(wa->border),
-		ColorBlue(wa->border),
-		ColorAlpha(wa->border)
-	);
+		wa->border.Red(),
+		wa->border.Green(),
+		wa->border.Blue(),
+		wa->border.Alpha());
 	for(int i = 0; i<wa->border_size;i++)
 	{
 		SDL_RenderDrawRect(core.GetRender(), &sdl);
@@ -67,7 +64,7 @@ void WritableAreaDraw(WritableArea* wa)
 
 void LabelUpdateTexture(Label* label)
 {
-		SDL_Surface *surf = TTF_RenderText_Blended(core.GetFont().GetSize(label->SizeActual), label->TextActual.c_str(), ColorToSdl(label->ColorActual));
+		SDL_Surface *surf = TTF_RenderText_Blended(core.GetFont().GetSize(label->SizeActual), label->TextActual.c_str(), label->ColorActual.sdl());
 		if (surf)
 		{
 			//printf("Oh My Goodness, an error : %s", TTF_GetError());
@@ -119,16 +116,16 @@ void LabelDraw(Label* label)
 
 void WritableAreaInput(Label *label)
 {
-	if(InputButton(INPUT_BACKSPACE))
+	if(core.InputButton(INPUT_BACKSPACE))
 	{
 		if(core.GetInput().command.size())
 		{
 			core.GetInput().command.pop_back();
 			std::cout << core.GetInput().command << std::endl;
-			InputReset();
+			core.InputReset();
 		}
 	}
-	if (InputButton(INPUT_RETURN))
+	if (core.InputButton(INPUT_RETURN))
 	{
 		core.GetInput().command = "";
 	}
@@ -156,7 +153,7 @@ void WindowCommand()
 		)
 		{
 			core.WindowMinimize();
-			InputReset();
+			core.InputReset();
 		}
 		
 
@@ -169,27 +166,27 @@ int main(int argc, char *argv[]) {
 
 	WritableArea *text_zone = WritableAreaCreate();
 	WritableAreaSetBox(text_zone, Box(0, core.GetInput().sizeh - 40, core.GetInput().sizew, 40));
-	WritableAreaSetBgColor(text_zone, ColorNew(20, 20, 20));
-	WritableAreaSetBorderColor(text_zone, ColorNew(55, 55, 55));
+	WritableAreaSetBgColor(text_zone, Color(20, 20, 20));
+	WritableAreaSetBorderColor(text_zone, Color(55, 55, 55));
 	WritableAreaSetBorderSize(text_zone, 5);
 
 	WritableArea *rectangle = WritableAreaCreate();
 	WritableAreaSetBox(rectangle, Box(0, 0, core.GetInput().sizew, core.GetInput().sizeh));
-	WritableAreaSetBgColor(rectangle, ColorNew(20, 20, 20));
-	WritableAreaSetBorderColor(rectangle, ColorNew(55, 55, 55));
+	WritableAreaSetBgColor(rectangle, Color(20, 20, 20));
+	WritableAreaSetBorderColor(rectangle, Color(55, 55, 55));
 	WritableAreaSetBorderSize(rectangle, 5);
 
 	WritableArea *title = WritableAreaCreate();
 	WritableAreaSetBox(title, Box(0, 0, core.GetInput().sizew, 20));
-	WritableAreaSetBgColor(title, ColorNew(55, 55, 55));
-	WritableAreaSetBorderColor(title, ColorNew(55, 55, 55));
+	WritableAreaSetBgColor(title, Color(55, 55, 55));
+	WritableAreaSetBorderColor(title, Color(55, 55, 55));
 	WritableAreaSetBorderSize(title, 0);
 
 	Label minus = { 0 };
 	minus.posx = 10;
 	minus.posy = core.GetInput().sizeh - 30;
 	minus.SizeActual = 18;
-	minus.ColorActual = ColorNew(250, 250, 250);
+	minus.ColorActual = Color(250, 250, 250);
 	minus.TextActual = "> ";
 	minus.TextLast = minus.TextActual;
 	LabelUpdateTexture(&minus);
@@ -198,7 +195,7 @@ int main(int argc, char *argv[]) {
 	command.posx = 10 + minus.cache.w;
 	command.posy = core.GetInput().sizeh - 30;
 	command.SizeActual = 15;
-	command.ColorActual = ColorNew(250, 250, 250);
+	command.ColorActual = Color(250, 250, 250);
 	core.GetInput().command = "";
 	command.TextActual = core.GetInput().command;
 	command.TextLast = command.TextActual;
@@ -208,7 +205,7 @@ int main(int argc, char *argv[]) {
 	bar.posx = 10;
 	bar.posy = core.GetInput().sizeh - 30;
 	bar.SizeActual = 18;
-	bar.ColorActual = ColorNew(250, 250, 250);
+	bar.ColorActual = Color(250, 250, 250);
 	bar.TextActual = "|";
 	bar.TextLast = bar.TextActual;
 	LabelUpdateTexture(&bar);
@@ -217,7 +214,7 @@ int main(int argc, char *argv[]) {
 	win_option.posx = core.GetInput().sizew - 30;
 	win_option.posy = -1;
 	win_option.SizeActual = 18;
-	win_option.ColorActual = ColorNew(250, 250, 250);
+	win_option.ColorActual = Color(250, 250, 250);
 	win_option.TextActual = "- x";
 	win_option.TextLast = bar.TextActual;
 	LabelUpdateTexture(&win_option);
@@ -225,7 +222,7 @@ int main(int argc, char *argv[]) {
 	SDL_SetTextInputRect(&rectus);
 	while(!core.GetInput().quit)
 	{
-		InputReturn();
+		core.InputReturn();
 		WindowCommand();
 		//printf("%s\n", core.GetInput().command);
 		WritableAreaInput(&command);

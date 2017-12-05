@@ -1,43 +1,53 @@
 ﻿#include "hdr/Color.h"
 
-Color ColorNew(const unsigned int r, const unsigned int g, const unsigned int b) {
-	return (r << 24) + (g << 16) + (b << 8) + 255;
-}
+Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : r_(r), g_(g), b_(b), a_(a){}
 
-Color ColorANew(const unsigned int r, const unsigned int g, const unsigned int b, const unsigned int a) {
-	return (r << 24) + (g << 16) + (b << 8) + a;
-}
-
-SDL_Color ColorToSdl(Color color)
+SDL_Color Color::sdl()
 {
-	SDL_Color sdl_color = { 0,0,0,255 };
-	sdl_color.r = color >> 24 & 255;
-	sdl_color.g = color >> 16 & 255;
-	sdl_color.b = color >> 8 & 255;
-	sdl_color.a = color & 255;
-	return sdl_color;
+	SDL_Color sdl = { r_, g_, b_, a_ };
+	return sdl;
 }
 
-int ColorRed(Color color)
+uint8_t Color::Red()
 {
-	SDL_Color color_sdl = ColorToSdl(color);
-	return color_sdl.r;
+	return r_;
 }
 
-int ColorGreen(Color color)
+uint8_t Color::Green()
 {
-	SDL_Color color_sdl = ColorToSdl(color);
-	return color_sdl.g;
+	return g_;
 }
 
-int ColorBlue(Color color)
+uint8_t Color::Blue()
 {
-	SDL_Color color_sdl = ColorToSdl(color);
-	return color_sdl.b;
+	return b_;
 }
 
-int ColorAlpha(Color color)
+uint8_t Color::Alpha()
 {
-	SDL_Color color_sdl = ColorToSdl(color);
-	return color_sdl.a;
+	return a_;
+}
+
+bool Color::operator==(const Color& c) const
+{
+	if (r_ == c.r_ && g_ == c.g_ && b_ == c.b_ && a_ && c.a_)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Color::operator!=(const Color& c) const
+{
+	if (r_ == c.r_ && g_ == c.g_ && b_ == c.b_ && a_ && c.a_)
+	{
+		return false;
+	}
+	return true;
+}
+
+Color& Color::operator=(const SDL_Color& c)
+{
+	r_ = c.r; g_ = c.g; b_ = c.b; a_ = c.a;
+	return *this;
 }

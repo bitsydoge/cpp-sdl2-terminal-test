@@ -3,6 +3,7 @@
 
 class Box
 {
+private:
 	int x_, y_, w_, h_;
 
 public:
