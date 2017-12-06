@@ -1,135 +1,9 @@
 #include "hdr/Box.h"
 #include "hdr/Color.h"
-#include <SDL2/SDL_ttf.h>
-#include "hdr/Texture.h"
-#include <iostream>
 #include "hdr/Core.h"
+#include "hdr/WritableArea.h"
 
 Core core("Terminal", 600, 400);
-
-WritableArea* WritableAreaCreate()
-{
-	WritableArea* writable_area = (WritableArea*)malloc(sizeof(WritableArea));
-	memset(writable_area, 0, sizeof(WritableArea));
-	return writable_area;
-}
-
-void WritableAreaSetBox(WritableArea* wa, Box box)
-{
-	wa->box = box;
-}
-
-void WritableAreaSetBgColor(WritableArea* wa, Color color)
-{
-	wa->background = color;
-}
-
-void WritableAreaSetBorderColor(WritableArea* wa, Color color)
-{
-	wa->border = color;
-}
-
-void WritableAreaSetBorderSize(WritableArea* wa, int size)
-{
-	wa->border_size = size;
-}
-
-void WritableAreaDraw(WritableArea* wa)
-{
-	SDL_SetRenderDrawColor(
-		core.GetRender(),wa->background.Red(), 
-		wa->background.Green(),
-		wa->background.Blue(),
-		wa->background.Alpha()
-	);
-	SDL_Rect sdl = wa->box.sdl();
-	SDL_RenderFillRect(core.GetRender(), &sdl);
-	SDL_SetRenderDrawColor(
-		core.GetRender(),
-		wa->border.Red(),
-		wa->border.Green(),
-		wa->border.Blue(),
-		wa->border.Alpha());
-	for(int i = 0; i<wa->border_size;i++)
-	{
-		SDL_RenderDrawRect(core.GetRender(), &sdl);
-		sdl.w -= 2;
-		sdl.h -= 2;
-		sdl.x++;
-		sdl.y++;
-	}
-};
-
-
-
-void LabelUpdateTexture(Label* label)
-{
-		SDL_Surface *surf = TTF_RenderText_Blended(core.GetFont().GetSize(label->SizeActual), label->TextActual.c_str(), label->ColorActual.sdl());
-		if (surf)
-		{
-			//printf("Oh My Goodness, an error : %s", TTF_GetError());
-			Texture texture = { 0 };
-			texture.handle = SDL_CreateTextureFromSurface(core.GetRender(), surf);
-			texture.w = surf->w; texture.h = surf->h;
-			if (label->cache.exist)
-			{
-				SDL_DestroyTexture(label->cache.handle);
-			}
-			label->cache = texture;
-			label->cache.exist = true;
-			label->HaveTexture = true;
-			SDL_FreeSurface(surf);
-		}
-		else
-		{
-			label->HaveTexture = false;
-			label->cache.w = 0;
-			label->cache.h = 0;
-		}
-}
-
-void LabelDraw(Label* label)
-{
-	if 
-	(
-		label->TextActual != label->TextLast ||
-		label->SizeActual != label->SizeLast ||
-		label->ColorActual != label->ColorLast
-	)
-	{
-		LabelUpdateTexture(label);
-		label->ColorLast = label->ColorActual;
-		label->SizeLast = label->SizeActual;
-		label->TextLast = label->TextActual;
-	}
-	Box box = Box
-	(
-		label->posx,
-		label->posy,
-		label->cache.w,
-		label->cache.h
-	);
-
-	if(label->HaveTexture)
-		TextureRender(&label->cache, NULL, &box);
-}
-
-void WritableAreaInput(Label *label)
-{
-	if(core.InputButton(INPUT_BACKSPACE))
-	{
-		if(core.GetInput().command.size())
-		{
-			core.GetInput().command.pop_back();
-			std::cout << core.GetInput().command << std::endl;
-			core.InputReset();
-		}
-	}
-	if (core.InputButton(INPUT_RETURN))
-	{
-		core.GetInput().command = "";
-	}
-}
 
 void WindowCommand()
 {
@@ -155,8 +29,6 @@ void WindowCommand()
 			core.WindowMinimize();
 			core.InputReset();
 		}
-		
-
 	}
 }
 
@@ -238,9 +110,7 @@ int main(int argc, char *argv[]) {
 		bar.posx = 10 + command.cache.w + minus.cache.w-4;
 		LabelDraw(&bar);
 		LabelDraw(&win_option);
-
 		SDL_RenderPresent(core.GetRender());
 	}
-
 	return 0;
 }

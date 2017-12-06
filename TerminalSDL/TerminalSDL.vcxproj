@@ -23,16 +23,19 @@
     <ClCompile Include="src\Color.cpp" />
     <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\Font.cpp" />
+    <ClCompile Include="src\Label.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\WritableArea.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\hdr\Box.h" />
     <ClInclude Include="src\hdr\Color.h" />
     <ClInclude Include="src\hdr\Core.h" />
     <ClInclude Include="src\hdr\Font.h" />
-    <ClInclude Include="src\hdr\Struct.h" />
+    <ClInclude Include="src\hdr\Label.h" />
     <ClInclude Include="src\hdr\Texture.h" />
+    <ClInclude Include="src\hdr\WritableArea.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

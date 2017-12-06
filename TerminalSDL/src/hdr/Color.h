@@ -1,6 +1,4 @@
-﻿#ifndef DEF_ICE_COLOR
-#define DEF_ICE_COLOR 
-
+﻿#pragma once
 #include <SDL2/SDL.h>
 
 class Color
@@ -18,5 +16,3 @@ class Color
 	bool operator!=(const Color& c) const;
 	Color& Color::operator=(const SDL_Color& c);
 };
-
-#endif

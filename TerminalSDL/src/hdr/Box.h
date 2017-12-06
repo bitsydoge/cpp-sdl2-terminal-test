@@ -8,7 +8,7 @@ private:
 
 public:
 	Box(int x, int y, int w, int h);
-	SDL_Rect sdl();
+	SDL_Rect sdl() const;
 
 	// Edit
 	void BoxSetPos(int x, int y);
@@ -20,8 +20,4 @@ public:
 	bool operator!=(const Box& b) const;
 	Box operator*(const float& f) const;
 	Box& operator=(const SDL_Rect& r);
-	
-
-	bool BoxCompareSize(Box box2);
-	bool BoxComparePos(Box box2);
 };

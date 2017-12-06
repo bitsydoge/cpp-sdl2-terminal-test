@@ -2,7 +2,7 @@
 
 Box::Box(const int x = 0, const int y = 0, const int w = 0, const int h = 0) : x_(x), y_(y), w_(w), h_(h){}
 
-SDL_Rect Box::sdl()
+SDL_Rect Box::sdl() const
 {
 	return SDL_Rect{x_,y_,w_,h_};
 }

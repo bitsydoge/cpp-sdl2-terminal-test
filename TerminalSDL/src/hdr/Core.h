@@ -1,6 +1,49 @@
 ﻿#pragma once
-#include "Struct.h"
 #include "Font.h"
+
+typedef struct {
+
+	bool quit;
+
+	////////////////////////////////////
+	// Window
+
+	bool focus;
+	int sizew;
+	int sizeh;
+
+	// Clavier
+
+	bool key[1024];
+	std::string command;
+
+	////////////////////////////////////
+	// Souris
+
+	int mousex;
+	int mousey;
+
+	// Clic
+
+	bool leftclic;
+	int leftclic_position_x;
+	int leftclic_position_y;
+
+	bool rightclic;
+	int rightclic_position_x;
+	int rightclic_position_y;
+
+	// Mouse Wheel
+
+	int wheelup;
+	int wheeldown;
+
+	////////////////////////////////////
+	// Fichier
+
+	char *filedrop;
+
+} Input;
 
 class Core
 {

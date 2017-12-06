@@ -133,6 +133,7 @@ void Core::InputReturn()
 void Core::InputReset() {
 	memset(&GetInput().key, 0, sizeof(bool[1024]));
 	memset(&GetInput().leftclic, 0, sizeof(bool));
+	memset(&GetInput().rightclic, 0, sizeof(bool));
 }
 
 bool Core::InputButton(const int button)

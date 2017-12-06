@@ -27,11 +27,14 @@
     <ClCompile Include="src\Font.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\WritableArea.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Label.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\hdr\Struct.h">
-      <Filter>hdr</Filter>
-    </ClInclude>
     <ClInclude Include="src\hdr\Color.h">
       <Filter>hdr</Filter>
     </ClInclude>
@@ -45,6 +48,12 @@
       <Filter>hdr</Filter>
     </ClInclude>
     <ClInclude Include="src\hdr\Font.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\WritableArea.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hdr\Label.h">
       <Filter>hdr</Filter>
     </ClInclude>
   </ItemGroup>
