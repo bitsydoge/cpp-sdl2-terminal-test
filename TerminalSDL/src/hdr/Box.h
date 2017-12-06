@@ -7,6 +7,7 @@ private:
 	int x_, y_, w_, h_;
 
 public:
+	Box();
 	Box(int x, int y, int w, int h);
 	SDL_Rect sdl() const;
 

@@ -4,28 +4,22 @@
 #include "Label.h"
 #include <iostream>
 
-typedef struct
+class WritableArea
 {
+	Box box_;
+	Label LabelActual_;
+	Color background_;
+	Color border_;
+	int border_size_;
+	bool isVisible_;
 
-	Box box;
-	Color background;
-	Color border;
-	int border_size;
-	bool isVisible;
-	Label LabelActual;
+	public:
 
-} WritableArea;
-
-WritableArea* WritableAreaCreate();
-
-void WritableAreaSetBox(WritableArea* wa, Box box);
-
-void WritableAreaSetBgColor(WritableArea* wa, Color color);
-
-void WritableAreaSetBorderColor(WritableArea* wa, Color color);
-
-void WritableAreaSetBorderSize(WritableArea* wa, int size);
-
-void WritableAreaDraw(WritableArea* wa);
-
-void WritableAreaInput(Label *label);
+	WritableArea();
+	void SetBox(Box box);
+	void SetBgColor(Color color);
+	void SetBorderColor(Color color);
+	void SetBorderSize(int size);
+	void Draw();
+	static void Input();
+};

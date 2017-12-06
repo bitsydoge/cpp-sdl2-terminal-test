@@ -1,6 +1,14 @@
 ﻿#include "hdr/Box.h"
 
-Box::Box(const int x = 0, const int y = 0, const int w = 0, const int h = 0) : x_(x), y_(y), w_(w), h_(h){}
+Box::Box()
+{
+	x_ = 0; y_ = 0; w_ = 0; h_ = 0;
+}
+
+Box::Box(const int x = 0, const int y = 0, const int w = 0, const int h = 0) : x_(x), y_(y), w_(w), h_(h)
+{
+	
+}
 
 SDL_Rect Box::sdl() const
 {

@@ -2,50 +2,49 @@
 
 extern Core core;
 
-WritableArea* WritableAreaCreate()
+WritableArea::WritableArea()
 {
-	WritableArea* writable_area = (WritableArea*)malloc(sizeof(WritableArea));
-	memset(writable_area, 0, sizeof(WritableArea));
-	return writable_area;
+
 }
 
-void WritableAreaSetBox(WritableArea* wa, Box box)
+
+void WritableArea::SetBox(Box box)
 {
-	wa->box = box;
+	box_ = box;
 }
 
-void WritableAreaSetBgColor(WritableArea* wa, Color color)
+void WritableArea::SetBgColor(Color color)
 {
-	wa->background = color;
+	background_ = color;
 }
 
-void WritableAreaSetBorderColor(WritableArea* wa, Color color)
+void WritableArea::SetBorderColor(Color color)
 {
-	wa->border = color;
+	border_ = color;
 }
 
-void WritableAreaSetBorderSize(WritableArea* wa, int size)
+void WritableArea::SetBorderSize(int size)
 {
-	wa->border_size = size;
+	border_size_ = size;
 }
 
-void WritableAreaDraw(WritableArea* wa)
+void WritableArea::Draw()
 {
 	SDL_SetRenderDrawColor(
-		core.GetRender(), wa->background.Red(),
-		wa->background.Green(),
-		wa->background.Blue(),
-		wa->background.Alpha()
+		core.GetRender(), background_.Red(),
+		background_.Green(),
+		background_.Blue(),
+		background_.Alpha()
 	);
-	SDL_Rect sdl = wa->box.sdl();
+	SDL_Rect sdl = box_.sdl();
 	SDL_RenderFillRect(core.GetRender(), &sdl);
 	SDL_SetRenderDrawColor(
 		core.GetRender(),
-		wa->border.Red(),
-		wa->border.Green(),
-		wa->border.Blue(),
-		wa->border.Alpha());
-	for (int i = 0; i<wa->border_size; i++)
+		border_.Red(),
+		border_.Green(),
+		border_.Blue(),
+		border_.Alpha());
+	for (int i = 0; i<border_size_; i++)
 	{
 		SDL_RenderDrawRect(core.GetRender(), &sdl);
 		sdl.w -= 2;
@@ -56,7 +55,7 @@ void WritableAreaDraw(WritableArea* wa)
 };
 
 
-void WritableAreaInput(Label *label)
+void WritableArea::Input()
 {
 	if (core.InputButton(INPUT_BACKSPACE))
 	{
@@ -72,5 +71,3 @@ void WritableAreaInput(Label *label)
 		core.GetInput().command = "";
 	}
 }
-
-

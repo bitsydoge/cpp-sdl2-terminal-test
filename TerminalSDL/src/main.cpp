@@ -2,6 +2,7 @@
 #include "hdr/Color.h"
 #include "hdr/Core.h"
 #include "hdr/WritableArea.h"
+#include <memory>
 
 Core core("Terminal", 600, 400);
 
@@ -36,23 +37,23 @@ int main(int argc, char *argv[]) {
 	
 	core.GetFont().Load("res/ttf/FiraSans-Medium.ttf");
 
-	WritableArea *text_zone = WritableAreaCreate();
-	WritableAreaSetBox(text_zone, Box(0, core.GetInput().sizeh - 40, core.GetInput().sizew, 40));
-	WritableAreaSetBgColor(text_zone, Color(20, 20, 20));
-	WritableAreaSetBorderColor(text_zone, Color(55, 55, 55));
-	WritableAreaSetBorderSize(text_zone, 5);
+	WritableArea text_zone;
+	text_zone.SetBox(Box(0, core.GetInput().sizeh - 40, core.GetInput().sizew, 40));
+	text_zone.SetBgColor(Color(20, 20, 20));
+	text_zone.SetBorderColor(Color(55, 55, 55));
+	text_zone.SetBorderSize(5);
 
-	WritableArea *rectangle = WritableAreaCreate();
-	WritableAreaSetBox(rectangle, Box(0, 0, core.GetInput().sizew, core.GetInput().sizeh));
-	WritableAreaSetBgColor(rectangle, Color(20, 20, 20));
-	WritableAreaSetBorderColor(rectangle, Color(55, 55, 55));
-	WritableAreaSetBorderSize(rectangle, 5);
+	WritableArea rectangle;
+	rectangle.SetBox(Box(0, 0, core.GetInput().sizew, core.GetInput().sizeh));
+	rectangle.SetBgColor(Color(20, 20, 20));
+	rectangle.SetBorderColor(Color(55, 55, 55));
+	rectangle.SetBorderSize(5);
 
-	WritableArea *title = WritableAreaCreate();
-	WritableAreaSetBox(title, Box(0, 0, core.GetInput().sizew, 20));
-	WritableAreaSetBgColor(title, Color(55, 55, 55));
-	WritableAreaSetBorderColor(title, Color(55, 55, 55));
-	WritableAreaSetBorderSize(title, 0);
+	WritableArea title;
+	title.SetBox(Box(0, 0, core.GetInput().sizew, 20));
+	title.SetBgColor(Color(55, 55, 55));
+	title.SetBorderColor(Color(55, 55, 55));
+	title.SetBorderSize(0);
 
 	Label minus = { 0 };
 	minus.posx = 10;
@@ -97,16 +98,18 @@ int main(int argc, char *argv[]) {
 		core.InputReturn();
 		WindowCommand();
 		//printf("%s\n", core.GetInput().command);
-		WritableAreaInput(&command);
+		text_zone.Input();
 		SDL_SetRenderDrawColor(core.GetRender(), 10, 10, 10, 255);
 		command.TextActual = core.GetInput().command;
 		SDL_RenderClear(core.GetRender());
-		WritableAreaDraw(rectangle);
-		WritableAreaDraw(title);
-		WritableAreaDraw(text_zone);
+		
+		rectangle.Draw();
+		title.Draw();
+		text_zone.Draw();
 
 		LabelDraw(&minus);
 		LabelDraw(&command);
+
 		bar.posx = 10 + command.cache.w + minus.cache.w-4;
 		LabelDraw(&bar);
 		LabelDraw(&win_option);
