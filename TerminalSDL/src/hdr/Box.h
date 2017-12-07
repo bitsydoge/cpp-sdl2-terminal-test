@@ -11,10 +11,15 @@ public:
 	Box(int x, int y, int w, int h);
 	SDL_Rect sdl() const;
 
+	int GetPosX() const;
+	int GetPosY() const;
+	int GetPosW() const;
+	int GetPosH() const;
+
 	// Edit
-	void BoxSetPos(int x, int y);
-	void BoxSetSize(int w, int h);
-	void BoxShift(int x, int y);
+	void SetPos(int x, int y);
+	void SetSize(int w, int h);
+	void ShiftPos(int x, int y);
 
 	// Overload
 	bool operator==(const Box& b) const;

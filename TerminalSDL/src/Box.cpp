@@ -15,17 +15,37 @@ SDL_Rect Box::sdl() const
 	return SDL_Rect{x_,y_,w_,h_};
 }
 
-void Box::BoxSetPos(int x, int y)
+int Box::GetPosX() const
+{
+	return x_;
+}
+
+int Box::GetPosY() const
+{
+	return y_;
+}
+
+int Box::GetPosW() const
+{
+	return w_;
+}
+
+int Box::GetPosH() const
+{
+	return h_;
+}
+
+void Box::SetPos(int x, int y)
 {
 	x_ = x; y_ = y;
 }
 
-void Box::BoxShift(int x, int y)
+void Box::ShiftPos(int x, int y)
 {
 	x_ += x; y_ += y;
 }
 
-void Box::BoxSetSize(int w, int h)
+void Box::SetSize(int w, int h)
 {
 	w_ = w; h_ = h;
 }

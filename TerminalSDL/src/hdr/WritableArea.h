@@ -10,8 +10,8 @@ class WritableArea
 	Label LabelActual_;
 	Color background_;
 	Color border_;
-	int border_size_;
-	bool isVisible_;
+	int border_size_ = 0;
+	bool isVisible_ = 1;
 
 	public:
 

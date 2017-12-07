@@ -3,14 +3,27 @@
 #include <SDL2/SDL.h>
 #include "Box.h"
 
-typedef struct {
+class Texture{
 
-	int exist;
-	int w;
-	int h;
-	SDL_Texture* handle;
+	int exist_ = 0;
+	int w_ = 0;
+	int h_ = 0;
+	SDL_Texture* handle_ = nullptr;
 
-} Texture;
+public:
+	int RenderCentered(Box* src, Box* dst);
+	int Render(Box* src, Box* dst);
 
-int TextureRenderCentered(Texture *texture, Box* src, Box* dst);
-int TextureRender(Texture *texture, Box* src, Box* dst);
+	void SetWidth(int w);
+	void SetHeight(int h);
+
+	int GetWidth() const;
+	int GetHeight() const;
+
+	void CleanHandle() const;
+
+	void SetExistState(bool state);
+	bool Exist() const;
+
+	Texture& operator=(SDL_Texture * texture);
+} ;

@@ -2,7 +2,6 @@
 #include "hdr/Color.h"
 #include "hdr/Core.h"
 #include "hdr/WritableArea.h"
-#include <memory>
 
 Core core("Terminal", 600, 400);
 
@@ -36,6 +35,7 @@ void WindowCommand()
 int main(int argc, char *argv[]) {
 	
 	core.GetFont().Load("res/ttf/FiraSans-Medium.ttf");
+	core.GetInput().command = "";
 
 	WritableArea text_zone;
 	text_zone.SetBox(Box(0, core.GetInput().sizeh - 40, core.GetInput().sizew, 40));
@@ -49,70 +49,67 @@ int main(int argc, char *argv[]) {
 	rectangle.SetBorderColor(Color(55, 55, 55));
 	rectangle.SetBorderSize(5);
 
-	WritableArea title;
-	title.SetBox(Box(0, 0, core.GetInput().sizew, 20));
-	title.SetBgColor(Color(55, 55, 55));
-	title.SetBorderColor(Color(55, 55, 55));
-	title.SetBorderSize(0);
+	WritableArea title_bar;
+	title_bar.SetBox(Box(0, 0, core.GetInput().sizew, 20));
+	title_bar.SetBgColor(Color(55, 55, 55));
+	title_bar.SetBorderColor(Color(55, 55, 55));
+	title_bar.SetBorderSize(0);
 
-	Label minus = { 0 };
-	minus.posx = 10;
-	minus.posy = core.GetInput().sizeh - 30;
-	minus.SizeActual = 18;
-	minus.ColorActual = Color(250, 250, 250);
-	minus.TextActual = "> ";
-	minus.TextLast = minus.TextActual;
-	LabelUpdateTexture(&minus);
+	Label minus;
+	minus = Box(10, core.GetInput().sizeh-30,0,0);
+	minus = 18;
+	minus = Color(250, 250, 250);
+	minus = "> ";
+	minus.UpdateTexture();
 
-	Label command = { 0 };
-	command.posx = 10 + minus.cache.w;
-	command.posy = core.GetInput().sizeh - 30;
-	command.SizeActual = 15;
-	command.ColorActual = Color(250, 250, 250);
-	core.GetInput().command = "";
-	command.TextActual = core.GetInput().command;
-	command.TextLast = command.TextActual;
-	LabelUpdateTexture(&command);
+	Label command;
+	command = Box(10 + minus.GetWidth(), core.GetInput().sizeh - 30,0,0);
+	command = 15;
+	command = Color(250, 250, 250);
+	command = core.GetInput().command;
+	command.UpdateTexture();
 
-	Label bar = { 0 };
-	bar.posx = 10;
-	bar.posy = core.GetInput().sizeh - 30;
-	bar.SizeActual = 18;
-	bar.ColorActual = Color(250, 250, 250);
-	bar.TextActual = "|";
-	bar.TextLast = bar.TextActual;
-	LabelUpdateTexture(&bar);
+	Label bar;
+	bar = Box(10, core.GetInput().sizeh - 30,0,0);
+	bar = 18;
+	bar = Color(250, 250, 250);
+	bar = "|";
+	bar.UpdateTexture();
 
-	Label win_option = { 0 };
-	win_option.posx = core.GetInput().sizew - 30;
-	win_option.posy = -1;
-	win_option.SizeActual = 18;
-	win_option.ColorActual = Color(250, 250, 250);
-	win_option.TextActual = "- x";
-	win_option.TextLast = bar.TextActual;
-	LabelUpdateTexture(&win_option);
-	SDL_Rect rectus = {0,0,40,40};
-	SDL_SetTextInputRect(&rectus);
+	Label win_option;
+	win_option = Box(core.GetInput().sizew - 30, -1,0,0);
+	win_option = 18;
+	win_option = Color(250, 250, 250);
+	win_option = "- x";
+	win_option.UpdateTexture();
+
 	while(!core.GetInput().quit)
 	{
+		// Input Return
 		core.InputReturn();
+		// Window Command
 		WindowCommand();
-		//printf("%s\n", core.GetInput().command);
+		// Writing
 		text_zone.Input();
+		command.SetText(core.GetInput().command);
+
+		// Render Clear
 		SDL_SetRenderDrawColor(core.GetRender(), 10, 10, 10, 255);
-		command.TextActual = core.GetInput().command;
 		SDL_RenderClear(core.GetRender());
 		
+		// WritableArea
 		rectangle.Draw();
-		title.Draw();
+		title_bar.Draw();
 		text_zone.Draw();
+		
+		// Labels
+		minus.Draw();
+		command.Draw();
+		bar.SetPosX(10 + command.GetWidth() + minus.GetWidth()-4);
+		bar.Draw();
+		win_option.Draw();
 
-		LabelDraw(&minus);
-		LabelDraw(&command);
-
-		bar.posx = 10 + command.cache.w + minus.cache.w-4;
-		LabelDraw(&bar);
-		LabelDraw(&win_option);
+		// Render everything
 		SDL_RenderPresent(core.GetRender());
 	}
 	return 0;
